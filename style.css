@@ -523,3 +523,38 @@ footer {
     margin-bottom: 15px;
     color: #7e57c2;
 }
+
+/* Estilos para los botones de imagen */
+.image-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.image-options button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Estilos para la sección de la cámara */
+#camera-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+}
+
+#camera-view {
+    background-color: #000;
+}
+
+#camera-section button {
+    margin: 5px;
+    width: 100%;
+    max-width: 200px;
+}

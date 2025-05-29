@@ -9,6 +9,86 @@ const loginForm = document.getElementById('loginForm');
 const logoutBtn = document.getElementById('logout-btn');
 const perfumeForm = document.getElementById('perfumeForm');
 const cancelEditBtn = document.getElementById('cancel-edit');
+const selectImageBtn = document.getElementById('select-image-btn');
+const takePhotoBtn = document.getElementById('take-photo-btn');
+const cameraSection = document.getElementById('camera-section');
+const cameraView = document.getElementById('camera-view');
+const captureBtn = document.getElementById('capture-btn');
+const closeCameraBtn = document.getElementById('close-camera-btn');
+const cameraCanvas = document.getElementById('camera-canvas');
+const imageInput = document.getElementById('image');
+let stream = null;
+
+// Abrir selector de archivos al hacer clic en "Seleccionar"
+selectImageBtn.addEventListener('click', function() {
+    imageInput.click();
+});
+
+// Abrir la cámara al hacer clic en "Tomar Foto"
+takePhotoBtn.addEventListener('click', function() {
+    // Intentar acceder a la cámara
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }) // Usar cámara trasera
+            .then(function(mediaStream) {
+                stream = mediaStream;
+                cameraView.srcObject = stream;
+                cameraSection.style.display = 'block';
+            })
+            .catch(function(error) {
+                console.error("Error al acceder a la cámara: ", error);
+                alert('No se pudo acceder a la cámara. Asegúrate de permitir el acceso.');
+            });
+    } else {
+        alert('Tu navegador no soporta la funcionalidad de cámara o no tiene acceso a ella.');
+    }
+});
+
+// Capturar foto
+captureBtn.addEventListener('click', function() {
+    if (stream) {
+        const ctx = cameraCanvas.getContext('2d');
+        
+        // Ajustar el canvas al tamaño del video
+        cameraCanvas.width = cameraView.videoWidth;
+        cameraCanvas.height = cameraView.videoHeight;
+        
+        // Dibujar la imagen actual del video en el canvas
+        ctx.drawImage(cameraView, 0, 0, cameraCanvas.width, cameraCanvas.height);
+        
+        // Detener la transmisión de la cámara
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+        
+        // Ocultar la sección de la cámara
+        cameraSection.style.display = 'none';
+        
+        // Convertir la imagen del canvas a un blob y luego a un archivo
+        cameraCanvas.toBlob(function(blob) {
+            // Crear un objeto File a partir del blob
+            const file = new File([blob], 'captured-photo.png', { type: 'image/png' });
+            
+            // Crear un DataTransfer para simular un input de archivo
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            
+            // Asignar los archivos al input de imagen
+            imageInput.files = dataTransfer.files;
+            
+            // Disparar el evento change para que se muestre la previsualización
+            const event = new Event('change', { bubbles: true });
+            imageInput.dispatchEvent(event);
+        }, 'image/png');
+    }
+});
+
+// Cerrar la cámara
+closeCameraBtn.addEventListener('click', function() {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+    }
+    cameraSection.style.display = 'none';
+});
 
 // Mostrar la sección de administración si ya está logueado
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         
-        if (username === 'admin' && password === 'angie25') {
+        if (username === 'admin' && password === 'admin123') {
             localStorage.setItem('isAdminLoggedIn', 'true');
             showAdminPanel();
         } else {
