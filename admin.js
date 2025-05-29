@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         
-        if (username === 'admin' && password === 'admin123') {
+        if (username === 'admin' && password === 'angie25') {
             localStorage.setItem('isAdminLoggedIn', 'true');
             showAdminPanel();
         } else {
