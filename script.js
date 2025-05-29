@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
         
         // Validación simple (admin/admin123)
-        if(username === 'admin' && password === 'admin123') {
+        if(username === 'admin' && password === 'angie25') {
             // Mostrar modal para agregar perfume
             document.getElementById('addPerfumeModal').style.display = 'flex';
         } else {
