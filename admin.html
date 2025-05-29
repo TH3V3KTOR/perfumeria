@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Perfumería Elegante</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-wind"></i>
+                <span>Perfumería Elegante</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#products">Productos</a></li>
+                    <li><a href="#" class="active">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <div id="login-section">
+            <div class="login-container">
+                <h2>Acceso Administrativo</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Usuario:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn-admin">Ingresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="admin-panel" style="display: none;">
+            <h2 class="section-title">Panel de Administración</h2>
+            <button id="logout-btn" class="btn-admin" style="background-color: #f44336; margin-bottom: 20px;">
+                Cerrar Sesión
+            </button>
+
+            <div class="admin-section" id="add-edit-section">
+                <h3>Agregar/Editar Perfume</h3>
+                <form id="perfumeForm">
+                    <input type="hidden" id="perfumeId">
+                    <div class="admin-form">
+                        <div class="form-group">
+                            <label for="perfumeName">Nombre del Perfume:</label>
+                            <input type="text" id="perfumeName" name="perfumeName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">Marca:</label>
+                            <select id="brand" name="brand" required>
+                                <option value="">Seleccionar Marca</option>
+                                <option value="YANBAL">YANBAL</option>
+                                <option value="ESIKA">ESIKA</option>
+                                <option value="AVON">AVON</option>
+                                <option value="OTRA">Otra Marca</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="stock">Stock:</label>
+                            <input type="number" id="stock" name="stock" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="normalPrice">Precio Normal (S/):</label>
+                            <input type="number" id="normalPrice" name="normalPrice" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="offerPrice">Precio Oferta (S/):</label>
+                            <input type="number" id="offerPrice" name="offerPrice" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Contenido (ml):</label>
+                            <input type="number" id="content" name="content" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Imagen del Producto:</label>
+                            <input type="file" id="image" name="image" accept="image/*">
+                            <div id="image-preview"></div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="description">Descripción:</label>
+                            <textarea id="description" name="description" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group full-width" style="text-align: center;">
+                            <button type="submit" class="btn-admin">Guardar Perfume</button>
+                            <button type="button" id="cancel-edit" class="btn-admin"
+                                style="background-color: #888; display: none;">
+                                Cancelar Edición
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="admin-section">
+                <h3>Lista de Perfumes</h3>
+                <!-- Buscador -->
+                <div class="search-container" style="margin-bottom: 20px;">
+                    <div class="search-bar" style="position: relative;">
+                        <input type="text" id="admin-search-input" placeholder="Buscar perfumes por nombre..."
+                            style="width: 100%; padding: 12px 15px 12px 40px; border-radius: 30px; border: 1px solid #ddd; font-size: 1rem;">
+                        <i class="fas fa-search"
+                            style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #7e57c2;"></i>
+                    </div>
+                </div>
+
+                <div class="products-grid" id="admin-products-container">
+                    <!-- Los productos se cargarán dinámicamente con JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Perfumería Elegante</h3>
+                    <p>Ofrecemos las mejores fragancias de las marcas más reconocidas a precios accesibles.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html#products">Productos</a></li>
+                        <li><a href="#">Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Marcas</h3>
+                    <ul>
+                        <li><a href="#">YANBAL</a></li>
+                        <li><a href="#">ESIKA</a></li>
+                        <li><a href="#">AVON</a></li>
+                        <li><a href="#">Nuevas Marcas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Lima</li>
+                        <li><i class="fas fa-phone"></i> (01) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> info@perfumeriaelegante.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Perfumería Angie. Todos los derechos reservados 2025.
+            </div>
+        </div>
+    </footer>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>
